@@ -1,6 +1,6 @@
-package pay.one.faster.domain.repository;
+package pay.one.faster.customer.domain.repository;
 
-import pay.one.faster.domain.security.CustomerData;
+import pay.one.faster.customer.domain.security.CustomerData;
 
 /**
  * @author claudioed on 2019-02-02.

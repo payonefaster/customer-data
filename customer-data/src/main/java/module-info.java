@@ -4,8 +4,8 @@
  */
 open module customer.data {
 
-  exports pay.one.faster.domain.request;
-  exports pay.one.faster.domain.security;
-  exports pay.one.faster.domain.repository;
+  exports pay.one.faster.customer.domain.request;
+  exports pay.one.faster.customer.domain.security;
+  exports pay.one.faster.customer.domain.repository;
 
 }

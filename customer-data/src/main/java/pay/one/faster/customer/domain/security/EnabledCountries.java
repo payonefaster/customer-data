@@ -1,4 +1,4 @@
-package pay.one.faster.domain.security;
+package pay.one.faster.customer.domain.security;
 
 import java.util.HashSet;
 import java.util.Set;

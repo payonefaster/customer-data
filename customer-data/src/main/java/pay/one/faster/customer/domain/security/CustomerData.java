@@ -1,4 +1,4 @@
-package pay.one.faster.domain.security;
+package pay.one.faster.customer.domain.security;
 
 /**
  * @author claudioed on 2019-02-02.

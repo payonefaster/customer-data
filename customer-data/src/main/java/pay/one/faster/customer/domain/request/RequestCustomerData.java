@@ -1,4 +1,4 @@
-package pay.one.faster.domain.request;
+package pay.one.faster.customer.domain.request;
 
 /**
  * @author claudioed on 2019-02-02.
