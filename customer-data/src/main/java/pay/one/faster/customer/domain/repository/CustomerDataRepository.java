@@ -1,6 +1,8 @@
 package pay.one.faster.customer.domain.repository;
 
+import pay.one.faster.customer.domain.request.NewCustomerRequest;
 import pay.one.faster.customer.domain.security.CustomerData;
+import reactor.core.publisher.Mono;
 
 /**
  * @author claudioed on 2019-02-02.
@@ -8,6 +10,8 @@ import pay.one.faster.customer.domain.security.CustomerData;
  */
 public interface CustomerDataRepository {
 
-  CustomerData customerData(String id);
+  Mono<CustomerData> customerData(String id);
+
+  Mono<CustomerData> register(NewCustomerRequest newCustomerRequest);
 
 }
