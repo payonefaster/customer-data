@@ -17,7 +17,7 @@ import pay.one.faster.customer.domain.service.CustomerDataService;
 @Configuration
 public class CustomerDataRouter {
 
-  @Bean
+  @Bean(name = "customerRouter")
   RouterFunction<ServerResponse> customerDataRouter(CustomerDataService customerDataService) {
     return route(GET("/api/customers/{id}"),
         req -> ok().body(customerDataService.requestCustomerData(req.pathVariable("id")), CustomerData.class))
