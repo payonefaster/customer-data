@@ -29,6 +29,7 @@ public class CommonCustomerDataRepository implements CustomerDataRepository {
     final CustomerData customerData = new CustomerData(UUID.randomUUID().toString(),
         newCustomerRequest.getName(), newCustomerRequest.getEmail(),
         newCustomerRequest.getEnabledCountries(), newCustomerRequest.getEnabledProvinces());
+    System.out.println("new id " + customerData.getId());
     return this.customerRepository.save(customerData);
   }
 

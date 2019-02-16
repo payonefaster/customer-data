@@ -17,5 +17,6 @@ open module customer.data {
   requires spring.boot.starter.data.mongodb.reactive;
   requires spring.data.mongodb;
   requires spring.data.commons;
+  requires spring.web;
 
 }

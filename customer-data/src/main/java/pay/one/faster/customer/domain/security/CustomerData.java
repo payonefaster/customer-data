@@ -1,11 +1,16 @@
 package pay.one.faster.customer.domain.security;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 /**
  * @author claudioed on 2019-02-02.
  * Project customer-data
  */
+@Document(collection = "customers")
 public class CustomerData {
 
+  @Id
   private String id;
 
   private String name;
