@@ -1,6 +1,5 @@
 package pay.one.faster.customer.infra.web.handler;
 
-import static org.springframework.web.reactive.function.BodyExtractors.toMono;
 import static org.springframework.web.reactive.function.BodyInserters.fromPublisher;
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
 import static org.springframework.web.reactive.function.server.RequestPredicates.POST;
@@ -17,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import pay.one.faster.customer.domain.request.NewCustomerRequest;
 import pay.one.faster.customer.domain.security.CustomerData;
 import pay.one.faster.customer.domain.service.CustomerDataService;
+import pay.one.faster.customer.infra.web.opentracing.OpenTracingHeaders;
 import reactor.core.publisher.Mono;
 
 @Configuration
@@ -26,20 +26,24 @@ public class CustomerDataRouter {
   RouterFunction<ServerResponse> customerDataRouter(CustomerDataService customerDataService) {
     return route(
             GET("/api/customers/{id}"),
-            req ->
-                ok().body(
-                        customerDataService.requestCustomerData(req.pathVariable("id")),
-                        CustomerData.class))
+            req -> {
+              final OpenTracingHeaders headers = OpenTracingHeaders.fromHeaders(req.headers());
+              return ok().body(
+                      customerDataService.requestCustomerData(req.pathVariable("id")),
+                      CustomerData.class);
+            })
         .and(
             route(
                 POST("/api/customers"),
                 req -> {
                   Mono<NewCustomerRequest> request = req.bodyToMono(NewCustomerRequest.class);
+                  final OpenTracingHeaders headers = OpenTracingHeaders.fromHeaders(req.headers());
                   return created(UriComponentsBuilder.fromPath("customers/").build().toUri())
                       .contentType(MediaType.APPLICATION_JSON)
-                      .body(fromPublisher(
-                          request.map(p -> p)
-                              .flatMap(customerDataService::registerCustomer), CustomerData.class));
+                      .body(
+                          fromPublisher(
+                              request.map(p -> p).flatMap(customerDataService::registerCustomer),
+                              CustomerData.class));
                 }));
   }
 }
